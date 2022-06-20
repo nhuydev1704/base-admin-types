@@ -1,9 +1,9 @@
-import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
-import { Layout, Menu, SiderProps } from 'antd';
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { Layout, SiderProps } from 'antd';
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../assets/images/logo.png';
+import SidebarContent from './SidebarContent';
 
 interface IProps {
     collapsed: boolean;
@@ -15,6 +15,12 @@ const LayoutSidebar: React.FunctionComponent<SiderProps> = styled(Layout.Sider)`
     min-width: ${(props) => (props.collapsed ? '' : '10px !important')}};
     flex: ${(props) => (props.collapsed ? '' : '0 0 auto !important')}};
     width: ${(props) => (props.collapsed ? '' : '280px !important')}}; 
+    @media(max-width: 768px) {
+        width: 0 !important;
+        max-width: 0 !important;
+        min-width: 0 !important;
+        overflow: hidden;
+      }
 `;
 
 const Wrapper = styled.div`
@@ -39,15 +45,6 @@ const ImageLogo = styled.img`
 `;
 
 const AppSidebar: React.FC<IProps> = ({ collapsed, handleCollapse }) => {
-    const [selectedKeys, setSelectedKeys] = React.useState('/');
-
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    React.useEffect(() => {
-        setSelectedKeys(location.pathname);
-    }, [location.pathname]);
-
     return (
         <LayoutSidebar trigger={null} collapsible collapsed={collapsed}>
             <Wrapper>
@@ -60,34 +57,7 @@ const AppSidebar: React.FC<IProps> = ({ collapsed, handleCollapse }) => {
                 </WrapIcon>
                 {collapsed ? <></> : <ImageLogo src={logo} alt="logo" />}
             </Wrapper>
-            <Menu
-                theme="dark"
-                mode="inline"
-                selectedKeys={[selectedKeys]}
-                onClick={(e) => {
-                    setSelectedKeys(e.key);
-                    navigate(e.key);
-                }}
-                items={[
-                    {
-                        key: '/',
-                        icon: <VideoCameraOutlined />,
-                        label: 'Trang chủ',
-                    },
-                    {
-                        key: '/crm',
-                        icon: <VideoCameraOutlined />,
-                        label: 'Crm',
-                        children: [
-                            {
-                                key: '/crm/employee',
-                                icon: <UserOutlined />,
-                                label: 'Nhân viên',
-                            },
-                        ],
-                    },
-                ]}
-            />
+            <SidebarContent collapsed={collapsed} handleCollapse={handleCollapse} />
         </LayoutSidebar>
     );
 };
