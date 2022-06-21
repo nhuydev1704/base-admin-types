@@ -7,11 +7,9 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     line-height: 1.5;
   }
-  body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
-  body.fontLoaded {
-    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  * {
+    font-family: 'Quicksand', sans-serif !important;
+    font-weight: 500;
   }
   #app {
     background-color: #fafafa;
