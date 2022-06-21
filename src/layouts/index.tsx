@@ -69,4 +69,4 @@ const AppLayout: React.FC<any> = ({ children }) => {
     );
 };
 
-export default AppLayout;
+export default React.memo(AppLayout);

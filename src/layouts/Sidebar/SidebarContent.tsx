@@ -1,5 +1,5 @@
 import { UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
-import { Menu } from 'antd';
+import { Button, Menu } from 'antd';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -19,34 +19,45 @@ const SidebarContent: React.FC<IProps> = ({ collapsed, handleCollapse }) => {
     }, [location.pathname]);
 
     return (
-        <Menu
-            theme="dark"
-            mode="inline"
-            selectedKeys={[selectedKeys]}
-            onClick={(e) => {
-                setSelectedKeys(e.key);
-                navigate(e.key);
-            }}
-            items={[
-                {
-                    key: '/',
-                    icon: <VideoCameraOutlined />,
-                    label: 'Trang chủ',
-                },
-                {
-                    key: '/crm',
-                    icon: <VideoCameraOutlined />,
-                    label: 'Crm',
-                    children: [
-                        {
-                            key: '/crm/employee',
-                            icon: <UserOutlined />,
-                            label: 'Nhân viên',
-                        },
-                    ],
-                },
-            ]}
-        />
+        <>
+            <Menu
+                theme="dark"
+                mode="inline"
+                selectedKeys={[selectedKeys]}
+                onClick={(e) => {
+                    setSelectedKeys(e.key);
+                    navigate(e.key);
+                }}
+                items={[
+                    {
+                        key: '/',
+                        icon: <VideoCameraOutlined />,
+                        label: 'Trang chủ',
+                    },
+                    {
+                        key: '/crm',
+                        icon: <VideoCameraOutlined />,
+                        label: 'Crm',
+                        children: [
+                            {
+                                key: '/crm/employee',
+                                icon: <UserOutlined />,
+                                label: 'Nhân viên',
+                            },
+                        ],
+                    },
+                ]}
+            />
+            <Button
+                onClick={() => {
+                    localStorage.removeItem('isLogged');
+                    window.location.reload();
+                }}
+                type="primary"
+            >
+                Đăng xuất
+            </Button>
+        </>
     );
 };
 
