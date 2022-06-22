@@ -1,6 +1,7 @@
 import { Col, Row } from 'antd';
+import { arrayMoveImmutable } from 'array-move';
 import React from 'react';
-import { arrayMove, SortableContainer } from 'react-sortable-hoc';
+import { SortableContainer } from 'react-sortable-hoc';
 import ContactCell from '../components/ContactCell';
 import HomeService, { data } from '../service';
 import { IContact, IPropsSortEnd } from '../types';
@@ -21,7 +22,7 @@ const HomePage: React.FC<any> = () => {
     const [contacts, setContacts] = React.useState(data);
 
     const onSortEnd = ({ oldIndex, newIndex }: IPropsSortEnd) => {
-        setContacts(arrayMove(contacts, oldIndex, newIndex));
+        setContacts(arrayMoveImmutable(contacts, oldIndex, newIndex));
     };
 
     React.useEffect(() => {
